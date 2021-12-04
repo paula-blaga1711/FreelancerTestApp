@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/resources', express.static(path.join(__dirname, '/resources')));
 
 require('./config/db');
-//require('./config/auth0');
+require('./config/auth0');
 require('./routes/index');
 
 const { port } = require('./config/config').environmentVariables
