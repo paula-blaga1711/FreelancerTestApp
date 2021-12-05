@@ -256,7 +256,6 @@ router.put('/:id', jwtCheck, async (req, res) => {
 
     let updateableProperties = {};
     _.forEach(User.schema.paths, function (value, key) {
-        //console.log('iteration is at: ', key)
         if (loggedInUser.role !== roles[0] && key == "role") return false
 
         if (key != '_id' && key != 'auth0_id' && key != 'email') {
@@ -267,7 +266,6 @@ router.put('/:id', jwtCheck, async (req, res) => {
     let fields = req.body
     _.forEach(fields, function (value, key) {
         if (!_.hasIn(updateableProperties, key)) {
-            //console.log('deleting ', fields[key])
             delete fields[key];
         } else {
             if ((updateableProperties[key].instance == 'ObjectID' && checkMongooseID(value) == false) ||

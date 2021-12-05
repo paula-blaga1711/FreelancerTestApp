@@ -17,6 +17,7 @@ global.languageByIndex = async function (index) {
     } else return null;
 };
 
+
 router.get('/', async function (req, res) {
     let languageIdentifier = null;
     if (!_.has(req.query, 'language') || await config.checkLanguage(req.query.language) === false) languageIdentifier = 'gb'
@@ -102,10 +103,5 @@ router.get('/languages/:index', async function (req, res) {
             message: responseMessages['generalError']
         });
 });
-
-
-
-
-
 
 module.exports = router;

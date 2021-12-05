@@ -106,8 +106,6 @@ module.exports.getLanguageByIndex = function (index) {
         });
 }
 
-
-
 module.exports.getRoles = function () {
     return GetSettings()
         .then(setting => {
@@ -136,4 +134,3 @@ module.exports.getRoleByIndex = function (index) {
             return null;
         });
 }
-

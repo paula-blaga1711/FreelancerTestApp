@@ -25,8 +25,9 @@ module.exports.getAllShifts = function (languageIdentifier, filter) {
     let matchCondition = filter;
     //to do: process matchConditions if necessary
 
-    if (languageIdentifier = null)
+    if (languageIdentifier == null)
         return Shift.find(matchCondition)
+            .populate('employee')
             .sort({ start: 'desc' })
             .exec()
             .catch(err => {
@@ -40,6 +41,16 @@ module.exports.getAllShifts = function (languageIdentifier, filter) {
         texts: { $elemMatch: { language: languageIdentifier } },
         tags: 1
     })
+        .populate('employee')
+        .sort({ start: 'desc' })
+        .exec()
+        .catch(err => {
+            console.log("There has been an error: ", err);
+            return null;
+        });
+
+
+
 
 }
 
@@ -48,7 +59,7 @@ module.exports.createShift = function (fields) {
         start: fields.start,
         end: fields.end,
         employee: fields.employee,
-        text: fields.text,
+        texts: fields.texts,
     });
     return newShift.save()
         .then(result => {
