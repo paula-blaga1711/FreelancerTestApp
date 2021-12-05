@@ -25,6 +25,26 @@ global.checkMongooseID = function (mongooseID) {
     return true;
 };
 
+module.exports.checkIfDate = function (dateTime) {
+    dateFormat = 'YYYY-MM-DD HH:mmZ'
+    if (moment(dateTime, dateFormat, true).isValid() === false) {
+      let failedFlag;
+      switch (moment(dateTime, dateFormat, true).invalidAt()) {
+        case 0: failedFlag = 'years'; break;
+        case 1: failedFlag = 'months'; break;
+        case 2: failedFlag = 'days'; break;
+        case 3: failedFlag = 'hours'; break;
+        case 4: failedFlag = 'minutes'; break;
+        case 5: failedFlag = 'seconds'; break;
+        case 6: failedFlag = 'miliseconds'; break;
+        default: failedFlag = 'not UTC (YYYY-MM-DD HH:mmZ) format'; break;
+      }
+      console.log(dateTime + ' failed: ' + failedFlag);
+      return false;
+    }
+    return true;
+  }
+
 module.exports.checkLanguage = async function (languageIdentifier) {
     let languages = await Settings.getLanguages();
     if (_.isEmpty(_.filter(languages, function (o) {

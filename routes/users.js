@@ -220,7 +220,7 @@ router.delete('/:id', jwtCheck, async (req, res) => {
             return res.status(400).json({ message: responseMessages['generalError'] });
         else {
             let responseDelete = await User.deleteUser(queriedUser._id);
-            if (responseDelete)
+            if (responseDelete.result.deletedCount == 1)
                 return res.status(200).json({ message: responseMessages['success'] });
             else
                 return res.status(400).json({ message: responseMessages['generalError'] });
